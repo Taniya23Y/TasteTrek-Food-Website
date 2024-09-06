@@ -2,7 +2,7 @@ const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 require("dotenv").config();
 
-const serviceAccountKey = require("./serviceAccountKey+json");
+const serviceAccountKey = require("./serviceAccountKey.json");
 
 // create an app
 const express = require("express");

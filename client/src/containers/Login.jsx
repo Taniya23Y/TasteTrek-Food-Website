@@ -5,10 +5,18 @@ import { motion } from "framer-motion";
 import { buttonClick } from "../animations";
 import { FaArrowRight } from "react-icons/fa";
 import logo from "../assets/f.png";
+import { useNavigate } from "react-router-dom";
 
 // auth 2 methods getAuth and providers
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import {
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { app } from "../config/firebase.config";
+import { validateUserJWTToken } from "../api";
 
 function Login() {
   const [userEmail, setUserEmail] = useState("");
@@ -52,17 +60,77 @@ function Login() {
   const firebaseAuth = getAuth(app);
   const provider = new GoogleAuthProvider();
 
+  // navigation to different paths of website once it sign in or login
+  const navigate = useNavigate();
+
   const loginWithGoogle = async () => {
     await signInWithPopup(firebaseAuth, provider).then((userCred) => {
       firebaseAuth.onAuthStateChanged((cred) => {
         if (userCred) {
           // console.log(cred);
           cred.getIdToken().then((token) => {
-            console.log(token);
+            // console.log(token);
+            validateUserJWTToken(token).then((data) => {
+              console.log(data);
+            });
+            navigate("/", { replace: true });
           });
         }
       });
     });
+  };
+
+  const signUpWithEmailPass = async () => {
+    if (userEmail === "" || password === "" || confirmPassword === "") {
+      // console.log("They are Empty");
+      alert("Please fill all the fields");
+    } else {
+      if (password === confirmPassword) {
+        setUserEmail("");
+        setConfirmPassword("");
+        setPassword("");
+        await createUserWithEmailAndPassword(
+          firebaseAuth,
+          userEmail,
+          password
+        ).then((userCred) => {
+          firebaseAuth.onAuthStateChanged((cred) => {
+            if (cred) {
+              cred.getIdToken().then((token) => {
+                validateUserJWTToken(token).then((data) => {
+                  console.log(data);
+                });
+                navigate("/", { replace: true });
+              });
+            }
+          });
+        });
+        // console.log("equal");
+      } else {
+        // alert message
+      }
+    }
+  };
+
+  const signInWithEmailPass = async () => {
+    if (!userEmail !== "" && password !== "") {
+      await signInWithEmailAndPassword(firebaseAuth, userEmail, password).then(
+        (userCred) => {
+          firebaseAuth.onAuthStateChanged((cred) => {
+            if (cred) {
+              cred.getIdToken().then((token) => {
+                validateUserJWTToken(token).then((data) => {
+                  console.log(data);
+                });
+                navigate("/", { replace: true });
+              });
+            }
+          });
+        }
+      );
+    } else {
+      // alert message
+    }
   };
 
   return (
@@ -223,6 +291,7 @@ function Login() {
               <button
                 type="submit"
                 className="w-full py-2 bg-[#FDC886] text-white rounded-md hover:bg-[#F59E44] transition duration-300"
+                onClick={signUpWithEmailPass}
               >
                 Sign-Up
               </button>
@@ -232,6 +301,7 @@ function Login() {
               <button
                 type="submit"
                 className="w-full py-2 bg-[#FDC886] text-black rounded-md hover:bg-[#F59E44] transition duration-300"
+                onClick={signInWithEmailPass}
               >
                 Sign-In
               </button>
