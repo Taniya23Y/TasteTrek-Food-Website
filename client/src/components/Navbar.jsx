@@ -1,17 +1,38 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, NavLink, replace, useNavigate } from "react-router-dom";
 import logo from "../assets/f.png";
 import { isActiveStyles, isNoActiveStyles } from "../utils/styles";
 import { motion } from "framer-motion";
-import { buttonClick } from "../animations";
-import { MdShoppingCart } from "../assets/icons";
-import { useSelector } from "react-redux";
+import { buttonClick, slideTop } from "../animations";
+import { MdLogout, MdShoppingCart } from "../assets/icons";
+import { useDispatch, useSelector } from "react-redux";
+import { RxAvatar } from "react-icons/rx";
+import { getAuth } from "firebase/auth";
+import { app } from "../config/firebase.config";
+import { setUserNull } from "../context/actions/userActions";
 
 const Navbar = () => {
   const user = useSelector((state) => state.user);
+  const [isMenu, setIsMenu] = useState(false);
+
+  const firebaseAuth = getAuth(app);
+
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+
+  const signOut = () => {
+    firebaseAuth
+      .signOut()
+      .then(() => {
+        dispatch(setUserNull());
+        navigate("/login", { replace: true });
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
-    <nav className=" fixed backdrop-blur-md z-50 inset-x-0 top-0 flex items-center justify-between px-12 md:px-20 py-6">
+    <nav className="bg-transparent fixed backdrop-blur-md z-50 inset-x-0 top-0 flex items-center justify-between px-12 md:px-20 py-6">
       <NavLink to="/" className="flex items-center justify-center gap-4">
         <div className="flex items-center w-full h-full">
           <img src={logo} alt="logo" className="w-[6.5185vh] h-[6.5185vh]" />
@@ -21,8 +42,8 @@ const Navbar = () => {
         </div>
       </NavLink>
 
-      <nav className="flex items-center justify-between gap-8">
-        <ul className="hidden md:flex items-center justify-between gap-8">
+      <nav className="flex items-center justify-center gap-3">
+        <ul className="hidden md:flex items-center justify-center gap-3">
           <NavLink
             className={({ isActive }) =>
               isActive ? isActiveStyles : isNoActiveStyles
@@ -65,14 +86,73 @@ const Navbar = () => {
         </motion.div>
 
         {user ? (
-          <>User</>
+          <>
+            <div
+              className="relative cursor-pointer"
+              onMouseEnter={() => setIsMenu(true)}
+            >
+              <div className="w-12 h-12 rounded-full shadow-md cursor-pointer overflow-hidden flex items-center justify-center">
+                <motion.img
+                  className="w-full h-full object-cover"
+                  src={user?.picture ? user?.picture : RxAvatar}
+                  whileHover={{ scale: 1.15 }}
+                  referrerPolicy="no-referrer"
+                  alt="userLoginProfile"
+                />
+              </div>
+
+              {/* dropdown menu  */}
+              {isMenu && (
+                <motion.div
+                  {...slideTop}
+                  onMouseLeave={() => setIsMenu(false)}
+                  className="px-6 py-4 w-48 bg-[#F5F3F0] backdrop-blur-md rounded-md shadow-md absolute top-12 right-0 flex flex-col gap-4"
+                >
+                  <Link
+                    className="hover:text-yellow-500 text-xl text-textColor"
+                    to={"/dashboard/home"}
+                  >
+                    DashBoard
+                  </Link>
+
+                  <Link
+                    className="hover:text-yellow-500 text-xl text-textColor"
+                    to={"/profile"}
+                  >
+                    My Profile
+                  </Link>
+
+                  <Link
+                    className="hover:text-yellow-500 text-xl text-textColor"
+                    to={"/user-orders"}
+                  >
+                    Orders
+                  </Link>
+                  <hr />
+
+                  <motion.div
+                    {...buttonClick}
+                    onClick={signOut}
+                    className="group flex items-center justify-center px-3 py-2 rounded-md shadow-md bg-gray-100 hover:bg-yellow-500 gap-3 "
+                  >
+                    <MdLogout className="text-2xl text-textColor group-hover:text-headingColor" />
+                    <p className="text-textColor text-xl group-hover:text-headingColor">
+                      Sign Out
+                    </p>
+                  </motion.div>
+                </motion.div>
+              )}
+            </div>
+          </>
         ) : (
           <>
             <NavLink to={"/login"}>
               <motion.button
                 {...buttonClick}
                 className="px-4 py-2 rounded-md shadow-md bg-white border border-red-300 cursor-pointer"
-              ></motion.button>
+              >
+                Login
+              </motion.button>
             </NavLink>
           </>
         )}

@@ -9,7 +9,6 @@ import { setUserDetails } from "./context/actions/userActions";
 import { motion } from "framer-motion";
 import { fadeInOut } from "./animations";
 import { Alert, MainLoader } from "./components";
-import Navbar from "./components/Navbar";
 
 const App = () => {
   const firebaseAuth = getAuth(app);
