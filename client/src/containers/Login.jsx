@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { LoginInput } from "../components";
 import { FaEnvelope, FaLock, FcGoogle } from "../assets/icons";
 import { motion } from "framer-motion";
@@ -17,6 +17,9 @@ import {
 } from "firebase/auth";
 import { app } from "../config/firebase.config";
 import { validateUserJWTToken } from "../api";
+import { useDispatch, useSelector } from "react-redux";
+import { setUserDetails } from "../context/actions/userActions";
+import { alertInfo, alertWarning } from "../context/actions/alertActions";
 
 function Login() {
   const [userEmail, setUserEmail] = useState("");
@@ -63,6 +66,19 @@ function Login() {
   // navigation to different paths of website once it sign in or login
   const navigate = useNavigate();
 
+  // dispatching data
+  const dispatch = useDispatch();
+
+  // user object
+  const user = useSelector((state) => state.user);
+  const alert = useSelector((state) => state.alert);
+
+  useEffect(() => {
+    if (user) {
+      navigate("/", { replace: true });
+    }
+  }, [user]);
+
   const loginWithGoogle = async () => {
     await signInWithPopup(firebaseAuth, provider).then((userCred) => {
       firebaseAuth.onAuthStateChanged((cred) => {
@@ -71,7 +87,8 @@ function Login() {
           cred.getIdToken().then((token) => {
             // console.log(token);
             validateUserJWTToken(token).then((data) => {
-              console.log(data);
+              // console.log(data);
+              dispatch(setUserDetails(data));
             });
             navigate("/", { replace: true });
           });
@@ -83,7 +100,7 @@ function Login() {
   const signUpWithEmailPass = async () => {
     if (userEmail === "" || password === "" || confirmPassword === "") {
       // console.log("They are Empty");
-      alert("Please fill all the fields");
+      dispatch(alertInfo("Required fields should not be empty."));
     } else {
       if (password === confirmPassword) {
         setUserEmail("");
@@ -98,7 +115,7 @@ function Login() {
             if (cred) {
               cred.getIdToken().then((token) => {
                 validateUserJWTToken(token).then((data) => {
-                  console.log(data);
+                  dispatch(setUserDetails(data));
                 });
                 navigate("/", { replace: true });
               });
@@ -107,7 +124,7 @@ function Login() {
         });
         // console.log("equal");
       } else {
-        // alert message
+        dispatch(alertWarning("Password doesn't match."));
       }
     }
   };
@@ -120,7 +137,7 @@ function Login() {
             if (cred) {
               cred.getIdToken().then((token) => {
                 validateUserJWTToken(token).then((data) => {
-                  console.log(data);
+                  dispatch(setUserDetails(data));
                 });
                 navigate("/", { replace: true });
               });
@@ -129,19 +146,21 @@ function Login() {
         }
       );
     } else {
-      // alert message
+      dispatch(alertWarning("Password doesn't match."));
     }
   };
 
   return (
     <div className="bg-[#FEBD2E] w-full min-h-screen flex flex-col pb-4 overflow-hidden">
       {/* Navbar */}
-      <div className="flex justify-between items-center px-5 py-2 w-full">
-        <div className="flex">
+      <div className="flex  justify-between items-center px-5 py-2 w-full">
+        <div className="flex  items-center justify-center">
           <span>
-            <img src={logo} alt="logo" className="w-[1.9rem] h-[1.9rem]" />
+            <img src={logo} alt="logo" className="w-[6.5185vh] h-[6.5185vh]" />
           </span>
-          <h1 className="font-[Aclonica] text-[1rem] md:text-2xl">TasteTrek</h1>
+          <h1 className="font-[Aclonica] text-center mx-auto text-[2.98vh] md:text-[2.7778vh]">
+            TasteTrek
+          </h1>
         </div>
 
         {/* Login and Signup Buttons */}

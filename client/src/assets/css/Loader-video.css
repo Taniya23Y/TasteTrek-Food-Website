@@ -1,0 +1,16 @@
+/* Loader-video.css */
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 9.375rem; /* Full width container */
+  height: 9.375rem; /* Adjust height based on your layout needs */
+}
+
+.responsive-lottie {
+  width: 50vw; /* 50% of the viewport width */
+  height: auto; /* Maintain aspect ratio */
+  max-width: 100px; /* Maximum width for larger screens */
+  min-width: 50px; /* Minimum width for smaller screens */
+  background-color: #f5f3f0;
+}
