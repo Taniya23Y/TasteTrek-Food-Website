@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { buttonClick } from "../animations";
 import { FaArrowRight } from "react-icons/fa";
 import logo from "../assets/f.png";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 // auth 2 methods getAuth and providers
 import {
@@ -71,13 +71,13 @@ function Login() {
 
   // user object
   const user = useSelector((state) => state.user);
-  const alert = useSelector((state) => state.alert);
+  // const alert = useSelector((state) => state.alert);
 
   useEffect(() => {
     if (user) {
       navigate("/", { replace: true });
     }
-  }, [user]);
+  }, [user]); /* eslint-disable-line react-hooks/exhaustive-deps */
 
   const loginWithGoogle = async () => {
     await signInWithPopup(firebaseAuth, provider).then((userCred) => {
@@ -159,17 +159,21 @@ function Login() {
             <img src={logo} alt="logo" className="w-[6.5185vh] h-[6.5185vh]" />
           </span>
           <h1 className="font-[Aclonica] text-center mx-auto text-[2.98vh] md:text-[2.7778vh]">
-            TasteTrek
+            <NavLink to={"/"}>TasteTrek</NavLink>
           </h1>
         </div>
 
         {/* Login and Signup Buttons */}
         <div className="flex gap-3 md:gap-5">
           <button className="border border-[#FDC886] rounded-md px-4 py-1 bg-black text-white hover:bg-white hover:text-black text-sm md:text-base">
-            Login
+            <NavLink to={"/login"} onClick={() => setIsSignUp(false)}>
+              Login
+            </NavLink>
           </button>
           <button className="border border-[#FDC886] rounded-md px-4 py-1 bg-black text-white hover:bg-white hover:text-black text-sm md:text-base">
-            Signup
+            <NavLink to={"/login"} onClick={() => setIsSignUp(true)}>
+              Signup
+            </NavLink>
           </button>
         </div>
       </div>

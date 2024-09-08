@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
-import { Main, Login } from "./containers";
+import { Main, Login, Dashboard } from "./containers";
 import { app } from "./config/firebase.config";
 import { getAuth } from "firebase/auth";
 import { validateUserJWTToken } from "./api";
@@ -33,10 +33,10 @@ const App = () => {
         setIsLoading(false);
       }, 3000);
     });
-  }, []);
+  }, []); /* eslint-disable-line react-hooks/exhaustive-deps */
 
   return (
-    <div className="App w-full min-h-screen h-auto flex flex-col items-center justify-center">
+    <div className="App w-full h-full flex flex-col items-center justify-center">
       {isLoading && (
         <motion.div
           {...fadeInOut}
@@ -48,6 +48,7 @@ const App = () => {
       <Routes>
         <Route path="/*" element={<Main />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/dashboard/*" element={<Dashboard />} />
       </Routes>
 
       {alert?.type && <Alert type={alert?.type} message={alert?.message} />}

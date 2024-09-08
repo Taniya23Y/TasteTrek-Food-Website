@@ -3,11 +3,11 @@ import HeroIMG from "../assets/HeroImg.png";
 
 const Hero = () => {
   return (
-    <section className="w-[98%] h-[70%] bg-[white] flex flex-col sm:flex-row items-center justify-between rounded-2xl px-1 py-1">
-      <div className="bg-[#FEBD2E] w-[100%] h-[60%] flex flex-col sm:flex-row items-center justify-between rounded-2xl">
+    <section className="w-auto h-auto bg-[white] flex flex-col sm:flex-row items-center justify-between rounded-2xl px-1 py-1 select-none">
+      <div className="bg-[#FEBD2E] w-[100%] h-auto flex flex-col sm:flex-row items-center justify-between rounded-2xl">
         {/* Text Section */}
 
-        <div className="flex ">
+        <div className="flex pt-[5rem]">
           <div className="p-3 lg:p-9 flex flex-col items-center justify-center space-y-4 md:space-y-6 max-w-lg">
             <div className="text-4xl md:text-6xl lg:text-[6rem] flex flex-col font-bold text-black">
               <span className="font-[Aclonica]">Taste</span>
@@ -33,11 +33,11 @@ const Hero = () => {
         </div>
 
         {/* Image Section */}
-        <div className="mt-0 md:mt-0 lg:mt-12 flex justify-center">
+        <div className="mt-0 md:mt-0 lg:mt-12 flex justify-center select-none">
           <img
             src={HeroIMG}
             alt="Chef Illustration"
-            className="w-[220px] h-[200px] md:w-auto md:h-auto bottom-0 object-contain"
+            className="w-[220px] h-[200px] md:w-auto md:h-auto bottom-0 object-contain pointer-events-none"
           />
         </div>
 

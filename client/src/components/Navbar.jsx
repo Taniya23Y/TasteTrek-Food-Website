@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { Link, NavLink, replace, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "../assets/f.png";
 import { isActiveStyles, isNoActiveStyles } from "../utils/styles";
 import { motion } from "framer-motion";
 import { buttonClick, slideTop } from "../animations";
 import { MdLogout, MdShoppingCart } from "../assets/icons";
 import { useDispatch, useSelector } from "react-redux";
-import { RxAvatar } from "react-icons/rx";
+// import { RxAvatar } from "react-icons/rx";
+import Avatar from "react-nice-avatar";
 import { getAuth } from "firebase/auth";
 import { app } from "../config/firebase.config";
 import { setUserNull } from "../context/actions/userActions";
@@ -15,6 +16,7 @@ const Navbar = () => {
   const user = useSelector((state) => state.user);
   const [isMenu, setIsMenu] = useState(false);
 
+  // signOut logic
   const firebaseAuth = getAuth(app);
 
   const navigate = useNavigate();
@@ -32,17 +34,19 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-transparent fixed backdrop-blur-md z-50 inset-x-0 top-0 flex items-center justify-between px-12 md:px-20 py-6">
+    <nav className="fixed z-50 inset-x-0 top-0 flex items-center justify-between px-4 lg:px-[4rem] py-4">
       <NavLink to="/" className="flex items-center justify-center gap-4">
-        <div className="flex items-center w-full h-full">
-          <img src={logo} alt="logo" className="w-[6.5185vh] h-[6.5185vh]" />
-          <h1 className="font-[Aclonica] text-[2.99vh] md:text-[3.5vh]">
+        <div className="flex items-center w-full h-full ">
+          {/* <img src={logo} alt="logo" className="w-[6.5185vh] h-[6.5185vh]" /> */}
+          <img src={logo} alt="logo" className="w-12" />
+          {/* <h1 className="font-[Aclonica] text-[2.99vh] md:text-[3.5vh]"> */}
+          <h1 className="font-[Aclonica] text-[1.3rem] md:text-[1.4rem]">
             TasteTrek
           </h1>
         </div>
       </NavLink>
 
-      <nav className="flex items-center justify-center gap-3">
+      <div>
         <ul className="hidden md:flex items-center justify-center gap-3">
           <NavLink
             className={({ isActive }) =>
@@ -77,7 +81,9 @@ const Navbar = () => {
             About Us
           </NavLink>
         </ul>
+      </div>
 
+      <nav className="flex items-center justify-center gap-3">
         <motion.div {...buttonClick} className="relative cursor-pointer">
           <MdShoppingCart className="text-3xl text-textColor" />
           <div className="w-6 h-6 rounded-full bg-red-500 flex items-center justify-center absolute -top-4 -right-1">
@@ -91,14 +97,26 @@ const Navbar = () => {
               className="relative cursor-pointer"
               onMouseEnter={() => setIsMenu(true)}
             >
-              <div className="w-12 h-12 rounded-full shadow-md cursor-pointer overflow-hidden flex items-center justify-center">
-                <motion.img
+              <div className="w-10 h-10 rounded-full shadow-md cursor-pointer overflow-hidden flex items-center justify-center">
+                {/* <motion.img
                   className="w-full h-full object-cover"
-                  src={user?.picture ? user?.picture : RxAvatar}
+                  src={user?.picture ? user?.picture : <Avatar />}
                   whileHover={{ scale: 1.15 }}
                   referrerPolicy="no-referrer"
                   alt="userLoginProfile"
-                />
+                /> */}
+
+                {user?.picture ? (
+                  <motion.img
+                    className="w-full h-full object-cover"
+                    src={user.picture}
+                    whileHover={{ scale: 1.15 }}
+                    referrerPolicy="no-referrer"
+                    alt="userLoginProfile"
+                  />
+                ) : (
+                  <Avatar className="w-full h-full text-3xl" />
+                )}
               </div>
 
               {/* dropdown menu  */}
@@ -106,7 +124,7 @@ const Navbar = () => {
                 <motion.div
                   {...slideTop}
                   onMouseLeave={() => setIsMenu(false)}
-                  className="px-6 py-4 w-48 bg-[#F5F3F0] backdrop-blur-md rounded-md shadow-md absolute top-12 right-0 flex flex-col gap-4"
+                  className="px-6 py-4 w-48 bg-[#F5F3F0] backdrop-blur-md rounded-md shadow-md absolute top-4 right-0 flex flex-col gap-4"
                 >
                   <Link
                     className="hover:text-yellow-500 text-xl text-textColor"

@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "../components/Navbar";
-import { Hero } from "../components";
+import Hero from "../components/Hero";
 
 function Main() {
   return (
@@ -8,9 +8,7 @@ function Main() {
     <main className="w-full h-full flex items-center justify-center flex-col bg-[#F5F3F0] ">
       <Navbar />
       <Hero />
-      <Hero />
-      <Hero />
-      <Hero />
+      {/* <Hero /> */}
     </main>
   );
 }
