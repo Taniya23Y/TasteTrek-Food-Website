@@ -13,3 +13,6 @@ export { default as DBNewItems } from "./dataStore/DBNewItems";
 export { default as DBOrders } from "./dataStore/DBOrders";
 export { default as DBUsers } from "./dataStore/DBUsers";
 export { default as DataTable } from "./dataStore/DataTable";
+export { default as DBMidSection } from "./dataStore/DBMidSection";
+
+export { default as Spinner } from "./Spinner";

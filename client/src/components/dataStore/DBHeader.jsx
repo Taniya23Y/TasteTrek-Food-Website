@@ -1,35 +1,12 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { MdSearch, BsToggles2, MdLogout } from "../../assets/icons";
+import { MdSearch, BsToggles2 } from "../../assets/icons";
 import { motion } from "framer-motion";
 import { BsFillBellFill } from "react-icons/bs";
 import { buttonClick } from "../../animations";
-import Avatar from "react-nice-avatar";
-import { getAuth } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
-import { setUserNull } from "../../context/actions/userActions";
-import { app } from "../../config/firebase.config";
+import { useSelector } from "react-redux";
 
 const DBHeader = () => {
   const user = useSelector((state) => state.user);
-
-  // signOut logic
-  const firebaseAuth = getAuth(app);
-
-  const navigate = useNavigate();
-
-  const dispatch = useDispatch();
-
-  const signOut = () => {
-    firebaseAuth
-      .signOut()
-      .then(() => {
-        dispatch(setUserNull());
-        navigate("/login", { replace: true });
-      })
-      .catch((err) => console.log(err));
-  };
-
   return (
     <div className="w-full flex items-center justify-between gap-3">
       <p className="text-2xl text-headingColor">
@@ -55,38 +32,6 @@ const DBHeader = () => {
         >
           <BsFillBellFill className="text-gray-400 text-2xl" />
         </motion.div>
-
-        <div className="flex items-center justify-center gap-2">
-          <div className="w-10 h-10 rounded-md cursor-pointer overflow-hidden">
-            {/* <motion.img
-              className="w-full h-full object-cover"
-              src={user?.picture ? user?.picture : <Avatar />}
-              alt="userImg"
-              whileHover={{ scale: 1.15 }}
-              referrerPolicy="no-referrer"
-            /> */}
-
-            {user?.picture ? (
-              <motion.img
-                className="w-full h-full object-cover"
-                src={user.picture}
-                whileHover={{ scale: 1.15 }}
-                referrerPolicy="no-referrer"
-                alt="userLoginProfile"
-              />
-            ) : (
-              <Avatar className="w-full h-full text-3xl" />
-            )}
-          </div>
-
-          <motion.div
-            onClick={signOut}
-            {...buttonClick}
-            className="w-10 h-10 rounded-md cursor-pointer bg-[#F5F3F0] backdrop-blur-md shadow-md flex items-center justify-center"
-          >
-            <MdLogout className="text-gray-400 text-2xl" />
-          </motion.div>
-        </div>
       </div>
     </div>
   );

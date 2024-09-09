@@ -1,24 +1,59 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
-import DBHeader from "../dataStore/DBHeader";
-import DBHome from "../dataStore/DBHome";
-import DBOrders from "../dataStore/DBOrders";
-import DBItems from "../dataStore/DBItems";
-import DBNewItems from "../dataStore/DBNewItems";
-import DBUsers from "../dataStore/DBUsers";
+import { useDispatch, useSelector } from "react-redux";
+import { MdSearch, BsToggles2, MdLogout } from "../../assets/icons";
+import { motion } from "framer-motion";
+import { BsFillBellFill } from "react-icons/bs";
+import { buttonClick } from "../../animations";
+import Avatar from "react-nice-avatar";
+import { getAuth } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { setUserNull } from "../../context/actions/userActions";
+import { app } from "../../config/firebase.config";
 
 const DBRightSection = () => {
+  const user = useSelector((state) => state.user);
+
+  // signOut logic
+  const firebaseAuth = getAuth(app);
+
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+
+  const signOut = () => {
+    firebaseAuth
+      .signOut()
+      .then(() => {
+        dispatch(setUserNull());
+        navigate("/login", { replace: true });
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
-    <div className="flex flex-col py-12 px-12 flex-1 h-full bg-red-400">
-      <DBHeader />
-      <div className="flex flex-col flex-1 overflow-y-scroll scrollbar">
-        <Routes>
-          <Route path="/home" element={<DBHome />} />
-          <Route path="/orders" element={<DBOrders />} />
-          <Route path="/items" element={<DBItems />} />
-          <Route path="/newItem" element={<DBNewItems />} />
-          <Route path="/users" element={<DBUsers />} />
-        </Routes>
+    <div className="h-full bg-[#F5F3F0] backdrop-blur-md shadow-md flex items-start pt-12 justify-start gap-3">
+      <div className="flex items-center justify-center gap-2 px-2">
+        <div className="w-10 h-10 rounded-md cursor-pointer overflow-hidden">
+          {user?.picture ? (
+            <motion.img
+              className="w-full h-full object-cover"
+              src={user.picture}
+              whileHover={{ scale: 1.15 }}
+              referrerPolicy="no-referrer"
+              alt="userLoginProfile"
+            />
+          ) : (
+            <Avatar className="w-full h-full text-3xl" />
+          )}
+        </div>
+
+        <motion.div
+          onClick={signOut}
+          {...buttonClick}
+          className="w-10 h-10 rounded-md cursor-pointer bg-[#F5F3F0] backdrop-blur-md shadow-md flex items-center justify-center"
+        >
+          <MdLogout className="text-gray-400 text-2xl" />
+        </motion.div>
       </div>
     </div>
   );

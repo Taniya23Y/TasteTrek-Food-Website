@@ -12,7 +12,7 @@ import {
 
 function DBLeftSection() {
   return (
-    <div className="h-full py-8 flex flex-col bg-[#F5F3F0] backdrop-blur-md shadow-md min-w-210 w-200 gap-3">
+    <div className="h-full sticky py-8 flex flex-col bg-[#F5F3F0] backdrop-blur-md shadow-md min-w-210 w-200 gap-3">
       <NavLink to={"/"} className="flex items-center justify-start ">
         <img src={logo} alt="logo" className="w-12" />
         <p className="font-semibold text-[1.5rem] font-[Aclonica]">TasteTrek</p>

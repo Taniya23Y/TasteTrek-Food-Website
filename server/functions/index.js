@@ -32,5 +32,9 @@ app.get("/", (req, res) => {
 const userRoute = require("./routes/user");
 app.use("/api/users", userRoute);
 
+// creating product route
+const productRoute = require("./routes/products");
+app.use("/api/products/", productRoute);
+
 // export this app
 exports.app = functions.https.onRequest(app);

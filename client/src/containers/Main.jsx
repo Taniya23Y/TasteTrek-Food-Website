@@ -8,6 +8,7 @@ function Main() {
     <main className="w-full h-full flex items-center justify-center flex-col bg-[#F5F3F0] ">
       <Navbar />
       <Hero />
+
       {/* <Hero /> */}
     </main>
   );
