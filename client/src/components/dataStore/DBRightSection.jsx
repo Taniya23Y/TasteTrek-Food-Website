@@ -1,8 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { MdSearch, BsToggles2, MdLogout } from "../../assets/icons";
+import { MdLogout } from "../../assets/icons";
 import { motion } from "framer-motion";
-import { BsFillBellFill } from "react-icons/bs";
 import { buttonClick } from "../../animations";
 import Avatar from "react-nice-avatar";
 import { getAuth } from "firebase/auth";

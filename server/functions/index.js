@@ -1,3 +1,8 @@
+/* eslint-disable linebreak-style */
+/* eslint-disable new-cap */
+/* eslint-disable object-curly-spacing */
+/* eslint-disable indent */
+
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 require("dotenv").config();

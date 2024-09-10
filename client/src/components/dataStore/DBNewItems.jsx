@@ -17,8 +17,8 @@ import {
 } from "../../context/actions/alertActions";
 import { motion } from "framer-motion";
 import { buttonClick } from "../../animations";
-// import { addNewProduct, getAllProducts } from "../../api";
-// import { setAllProducts } from "../../context/actions/productActions";
+import { addNewProduct, getAllProducts } from "../../api";
+import { setAllProducts } from "../../context/actions/productActions";
 
 const DBNewItems = () => {
   const [itemName, setItemName] = useState("");
@@ -103,20 +103,20 @@ const DBNewItems = () => {
       imageURL: imageDownloadURL,
     };
     console.log(data);
-    // addNewProduct(data).then((res) => {
-    //   console.log(res);
-    //   dispatch(alertSuccess("New Item added"));
-    //   setTimeout(() => {
-    //     dispatch(alertNULL());
-    //   }, 3000);
-    //   setImageDownloadURL(null);
-    //   setItemName("");
-    //   setPrice("");
-    //   setCategory(null);
-    // });
-    // getAllProducts().then((data) => {
-    //   dispatch(setAllProducts(data));
-    // });
+    addNewProduct(data).then((res) => {
+      console.log(res);
+      dispatch(alertSuccess("New Item added"));
+      setTimeout(() => {
+        dispatch(alertNULL());
+      }, 3000);
+      setImageDownloadURL(null);
+      setItemName("");
+      setPrice("");
+      setCategory(null);
+    });
+    getAllProducts().then((data) => {
+      dispatch(setAllProducts(data));
+    });
   };
 
   return (
@@ -134,7 +134,7 @@ const DBNewItems = () => {
               <p
                 key={data.id}
                 onClick={() => setCategory(data.category)}
-                className={`px-4 py-3 rounded-md text-3xl text-textColor font-semibold cursor-pointer hover:shadow-md border border-gray-200 backdrop-blur-md ${
+                className={`px-4 py-3 rounded-md text-[1.5rem] text-textColor font-semibold cursor-pointer hover:shadow-md border border-gray-200 backdrop-blur-md ${
                   data.category === category
                     ? "bg-[#FEBD2E] text-primary"
                     : "bg-transparent"

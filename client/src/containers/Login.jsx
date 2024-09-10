@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { buttonClick } from "../animations";
 import { FaArrowRight } from "react-icons/fa";
 import logo from "../assets/f.png";
+import loginImage from "../assets/loginImg.png";
 import { NavLink, useNavigate } from "react-router-dom";
 
 // auth 2 methods getAuth and providers
@@ -151,12 +152,16 @@ function Login() {
   };
 
   return (
-    <div className="bg-[#FEBD2E] w-full min-h-screen flex flex-col pb-4 overflow-hidden">
+    <div className="bg-[#FEBD2E] w-full min-h-screen flex flex-col pb-4 overflow-hidden select-none">
       {/* Navbar */}
       <div className="flex  justify-between items-center px-5 py-2 w-full">
         <div className="flex  items-center justify-center">
           <span>
-            <img src={logo} alt="logo" className="w-[6.5185vh] h-[6.5185vh]" />
+            <img
+              src={logo}
+              alt="logo"
+              className="w-[6.5185vh] h-[6.5185vh] pointer-events-none"
+            />
           </span>
           <h1 className="font-[Aclonica] text-center mx-auto text-[2.98vh] md:text-[2.7778vh]">
             <NavLink to={"/"}>TasteTrek</NavLink>
@@ -200,10 +205,23 @@ function Login() {
             >
               good mood!
             </motion.h2>
-            <p className="text-[1rem] font-serif">
-              Are you hungry? Don't wait.
-            </p>
-            <p className="text-[1rem] font-serif">Let's start to order now.</p>
+            <div className="flex flex-row items-center justify-start ">
+              <div>
+                <p className="text-[1rem] font-serif">
+                  Are you hungry? Don't wait.
+                </p>
+                <p className="text-[1rem] font-serif">
+                  Let's start to order now.
+                </p>
+              </div>
+              <div>
+                <img
+                  src={loginImage}
+                  alt="loginImg"
+                  className="w-50 h-20 pointer-events-none"
+                />
+              </div>
+            </div>
 
             {/* Animated Arrow */}
             <div className="flex items-center justify-start mt-4 text-[2rem]">
