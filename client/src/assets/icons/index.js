@@ -18,6 +18,10 @@ import { HiCurrencyRupee } from "react-icons/hi2";
 import { IoFastFoodSharp } from "react-icons/io5";
 import { MdInfoOutline, MdRestaurantMenu } from "react-icons/md";
 import { RiFolderInfoFill } from "react-icons/ri";
+import {
+  TbLayoutSidebarRightCollapseFilled,
+  TbLayoutSidebarRightExpandFilled,
+} from "react-icons/tb";
 
 export {
   FaUserCheck,
@@ -44,4 +48,6 @@ export {
   MdInfoOutline,
   MdRestaurantMenu,
   RiFolderInfoFill,
+  TbLayoutSidebarRightCollapseFilled,
+  TbLayoutSidebarRightExpandFilled,
 };

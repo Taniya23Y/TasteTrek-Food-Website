@@ -19,7 +19,7 @@ const DBItems = () => {
   }, [dispatch, products]);
 
   return (
-    <div className="flex items-center justify-center gap-4 pt-6 w-full px-8">
+    <div className="flex items-center justify-center gap-4 pt-6 w-full px-4">
       <DataTable
         columns={[
           {

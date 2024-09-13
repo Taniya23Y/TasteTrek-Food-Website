@@ -10,7 +10,7 @@ import DBUsers from "../dataStore/DBUsers";
 const DBMidSection = () => {
   return (
     // <div className="flex flex-col py-12 px-12 flex-1 h-full bg-red-400">
-    <div className="flex flex-col py-10 px-12 flex-1 h-full bg-[#FFEFCD]">
+    <div className="flex flex-col gap-4 py-7 px-11 flex-1 h-full bg-[#FFEFCD]">
       <DBHeader />
       <div className="flex flex-col flex-1 overflow-y-scroll scrollbar">
         <Routes>
