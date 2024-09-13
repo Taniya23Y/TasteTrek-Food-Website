@@ -167,7 +167,7 @@ const Navbar = () => {
             <NavLink to={"/login"}>
               <motion.button
                 {...buttonClick}
-                className="px-4 py-2 rounded-md shadow-md bg-white border border-red-300 cursor-pointer"
+                className="px-4 py-1 rounded-3xl shadow-md bg-white border border-white cursor-pointer"
               >
                 Login
               </motion.button>

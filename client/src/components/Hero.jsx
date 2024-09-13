@@ -4,15 +4,18 @@ import HeroIMG from "../assets/HeroImg.png";
 const Hero = () => {
   return (
     <section className="w-auto h-auto bg-[white] flex flex-col sm:flex-row items-center justify-between rounded-2xl px-1 py-1 select-none">
-      <div className="bg-[#FEBD2E] w-[100%] h-auto flex flex-col sm:flex-row items-center justify-between rounded-2xl">
+      <div className="bg-[#FEBD2E] w-[100%] h-auto flex flex-col sm:flex-row items-center justify-between gap-[1vw] lg:gap-[2vw] xl:gap-[11vw] 2xl:gap-[11vw] rounded-2xl">
         {/* Text Section */}
 
         <div className="flex pt-[5rem]">
           <div className="p-3 lg:p-9 flex flex-col items-center justify-center space-y-4 md:space-y-6 max-w-lg">
-            <div className="text-4xl md:text-6xl lg:text-[6rem] flex flex-col font-bold text-black">
+            <div className="text-4xl md:text-6xl lg:text-[5rem] flex flex-col font-bold text-black">
               <span className="font-[Aclonica]">Taste</span>
               <span className="flex flex-end">
-                <pre className="flex flex-end font-[Aclonica]"> - Trek</pre>
+                <pre className="flex flex-end font-[Aclonica]">
+                  {" "}
+                  - Trek Food
+                </pre>
               </span>
               <span className="font-[Aclonica]">Secrets</span>
             </div>

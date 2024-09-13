@@ -39,7 +39,7 @@ const DBUsers = () => {
   // ]); /* eslint-disable-line react-hooks/exhaustive-deps */
 
   return (
-    <div className="flex items-center justify-self-center gap-4 pt-6 w-full">
+    <div className="flex items-center justify-center gap-4 pt-6 w-full">
       <DataTable
         columns={[
           {

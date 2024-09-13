@@ -170,12 +170,12 @@ function Login() {
 
         {/* Login and Signup Buttons */}
         <div className="flex gap-3 md:gap-5">
-          <button className="border border-[#FDC886] rounded-md px-4 py-1 bg-black text-white hover:bg-white hover:text-black text-sm md:text-base">
+          <button className="border border-[#FDC886] rounded-2xl px-4 py-1 bg-black text-white hover:bg-white hover:text-black text-sm md:text-base">
             <NavLink to={"/login"} onClick={() => setIsSignUp(false)}>
               Login
             </NavLink>
           </button>
-          <button className="border border-[#FDC886] rounded-md px-4 py-1 bg-black text-white hover:bg-white hover:text-black text-sm md:text-base">
+          <button className="border border-[#FDC886] rounded-2xl px-4 py-1 bg-black text-white hover:bg-white hover:text-black text-sm md:text-base">
             <NavLink to={"/login"} onClick={() => setIsSignUp(true)}>
               Signup
             </NavLink>

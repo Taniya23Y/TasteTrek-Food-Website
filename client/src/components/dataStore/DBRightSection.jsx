@@ -1,171 +1,175 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  MdLogout,
+  BiSolidReport,
+  IoBarChartSharp,
+  IoPieChartSharp,
   TbLayoutSidebarRightCollapseFilled,
-  TbLayoutSidebarRightExpandFilled,
 } from "../../assets/icons";
 import { motion } from "framer-motion";
 import { buttonClick } from "../../animations";
-import Avatar from "react-nice-avatar";
-import { getAuth } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
-import { setUserNull } from "../../context/actions/userActions";
-import { app } from "../../config/firebase.config";
 
 import { CChart } from "@coreui/react-chartjs";
+import { getAllProducts } from "../../api";
+import { setAllProducts } from "../../context/actions/productActions";
 
 const DBRightSection = () => {
-  const user = useSelector((state) => state.user);
-
-  // signOut logic
-  const firebaseAuth = getAuth(app);
-
-  const navigate = useNavigate();
+  const [isSectionVisible, setIsSectionVisible] = useState(false); // State for showing/hiding the section
 
   const dispatch = useDispatch();
 
-  const signOut = () => {
-    firebaseAuth
-      .signOut()
-      .then(() => {
-        dispatch(setUserNull());
-        navigate("/login", { replace: true });
-      })
-      .catch((err) => console.log(err));
+  const products = useSelector((state) => state.products);
+  const drinks = products?.filter((item) => item.product_category === "drinks");
+  const deserts = products?.filter(
+    (item) => item.product_category === "deserts"
+  );
+  const fruits = products?.filter((item) => item.product_category === "fruits");
+  const rice = products?.filter((item) => item.product_category === "rice");
+  const curry = products?.filter((item) => item.product_category === "curry");
+  const bread = products?.filter((item) => item.product_category === "bread");
+  const chinese = products?.filter(
+    (item) => item.product_category === "chinese"
+  );
+
+  useEffect(() => {
+    if (!products) {
+      getAllProducts().then((data) => {
+        dispatch(setAllProducts(data));
+      });
+    }
+  }, []); /* eslint-disable-line react-hooks/exhaustive-deps */
+
+  // Toggle visibility of DBRightSection
+  const toggleSectionVisibility = () => {
+    setIsSectionVisible(!isSectionVisible);
   };
 
   return (
-    <div className="h-full bg-[#F5F3F0] backdrop-blur-md shadow-md flex flex-col items-center pt-12 justify-start gap-3 overflow-y-auto">
-      <div className="flex justify-between gap-5 w-full px-2">
-        {/* hide DBRightSection icon  */}
-        <div className="flex items-center justify-start">
-          <motion.div
-            {...buttonClick}
-            className="w-10 h-10 rounded-md cursor-pointer bg-[#F5F3F0] backdrop-blur-md shadow-md flex items-center justify-center"
-          >
-            <TbLayoutSidebarRightCollapseFilled className="text-gray-400 text-2xl" />
-          </motion.div>
-        </div>
-
+    <div className="relative h-full bg-[#F5F3F0] backdrop-blur-md shadow-md flex flex-col items-center pt-7 justify-start gap-3 ">
+      <div className="flex w-full justify-between gap-5 px-2">
         {/* user verified image */}
-        <div className="flex items-center justify-end gap-2">
-          <div className="w-10 h-10 rounded-md cursor-pointer overflow-hidden">
-            {user?.picture ? (
-              <motion.img
-                className="w-full h-full object-cover"
-                src={user.picture}
-                whileHover={{ scale: 1.15 }}
-                referrerPolicy="no-referrer"
-                alt="userLoginProfile"
-              />
-            ) : (
-              <Avatar className="w-full h-full text-3xl" />
+        {isSectionVisible && (
+          <div className="flex items-center justify-start gap-2">
+            {/* report headings */}
+            {isSectionVisible && (
+              <div className="flex items-start justify-start w-full px-4">
+                <div className="flex items-center gap-2 bg-[#FB6C55] rounded-2xl px-2 py-1">
+                  <h1 className="text-[1rem] font-semi">Report Analysis</h1>
+                  <BiSolidReport className="text-black text-[1rem]" />
+                </div>
+              </div>
             )}
           </div>
+        )}
 
-          {/* Logout btn  */}
+        {/* Hide/Unhide DBRightSection icon */}
+        <div className="absolute top-7 right-2 flex items-center justify-end">
           <motion.div
-            onClick={signOut}
             {...buttonClick}
-            className="w-10 h-10 rounded-md cursor-pointer bg-[#F5F3F0] backdrop-blur-md shadow-md flex items-center justify-center"
+            className="w-10 h-10 rounded-md cursor-pointer bg-[#FB6C55] backdrop-blur-md shadow-md flex items-center justify-center"
+            onClick={toggleSectionVisibility}
           >
-            <MdLogout className="text-gray-400 text-2xl" />
+            <TbLayoutSidebarRightCollapseFilled className="text-black text-2xl" />
           </motion.div>
         </div>
       </div>
 
-      {/* bar chart code by coreUi@react.js */}
-      <div className="overflow-auto">
-        <div className="flex items-center justify-center px-2 py-2 w-full">
-          <div className="">
-            {" "}
-            {/* Adjust max-height as needed */}
-            <CChart
-              type="bar"
-              data={{
-                labels: [
-                  "January",
-                  "February",
-                  "March",
-                  "April",
-                  "May",
-                  "June",
-                  "July",
-                ],
-                datasets: [
-                  {
-                    label: "GitHub Commits",
-                    backgroundColor: "#f87979",
-                    data: [40, 20, 12, 39, 10, 40, 39, 80, 40],
-                  },
-                ],
-              }}
-              labels="months"
-              options={{
-                plugins: {
-                  legend: {
-                    labels: {
-                      color: "black",
+      {/* Conditionally render the DBRightSection */}
+      {isSectionVisible && (
+        <div className="overflow-y-scroll scrollbar">
+          {/* bar chart code by coreUi@react.js */}
+          <div className="flex items-center justify-center px-2 py-2">
+            <div className="bg-[#e2e0e0] rounded-md py-8 px-2 h-full">
+              <div className="flex items-center justify-center gap-2 pb-4 underline">
+                <h1 className="text-[2rem] font-medium">Bar Report</h1>
+                <IoBarChartSharp className="text-black text-[2rem]" />
+              </div>
+              <CChart
+                type="bar"
+                data={{
+                  labels: [
+                    "Drinks",
+                    "Deserts",
+                    "Fruits",
+                    "Rice",
+                    "Curry",
+                    "Bread",
+                    "Chinese",
+                  ],
+                  datasets: [
+                    {
+                      label: "Category wise Count",
+                      backgroundColor: "#FEBD2E",
+                      data: [
+                        drinks?.length,
+                        deserts?.length,
+                        fruits?.length,
+                        rice?.length,
+                        curry?.length,
+                        bread?.length,
+                        chinese?.length,
+                      ],
+                    },
+                  ],
+                }}
+                options={{
+                  plugins: {
+                    legend: {
+                      labels: {
+                        color: "#000000",
+                      },
                     },
                   },
-                },
-              }}
-            />
+                }}
+              />
+            </div>
           </div>
-        </div>
 
-        <div className="flex items-center justify-center px-2 w-full">
-          <div className="">
-            {" "}
-            {/* Adjust max-height as needed */}
-            <CChart
-              type="doughnut"
-              data={{
-                labels: ["VueJs", "EmberJs", "ReactJs", "AngularJs"],
-                datasets: [
-                  {
-                    backgroundColor: [
-                      "#41B883",
-                      "#E46651",
-                      "#00D8FF",
-                      "#DD1B16",
-                    ],
-                    data: [40, 20, 80, 10],
-                  },
-                ],
-              }}
-              options={{
-                plugins: {
-                  legend: {
-                    labels: {
-                      color: "black",
+          <hr />
+
+          <div className="flex items-center justify-center px-2 w-full pt-2 pb-3">
+            <div className="bg-[#e2e0e0] rounded-md py-8 px-2 h-full">
+              <div className="flex items-center justify-center gap-2 pb-4 underline">
+                <h1 className="text-[2rem] font-medium">Doughnut Report</h1>
+                <IoPieChartSharp className="text-black text-[2rem]" />
+              </div>
+              <CChart
+                type="doughnut"
+                data={{
+                  labels: [
+                    "Orders",
+                    "Delivered",
+                    "Cancelled",
+                    "Paid",
+                    "Not Paid",
+                  ],
+                  datasets: [
+                    {
+                      backgroundColor: [
+                        "#51FF00",
+                        "#00B6FF",
+                        "#008BFF",
+                        "#FFD100",
+                        "#FF00FB",
+                      ],
+                      data: [40, 20, 80, 34, 54],
+                    },
+                  ],
+                }}
+                options={{
+                  plugins: {
+                    legend: {
+                      labels: {
+                        color: "black",
+                      },
                     },
                   },
-                },
-              }}
-            />
+                }}
+              />
+            </div>
           </div>
         </div>
-
-        {/* Scrollable content */}
-        <div className="flex flex-col items-center justify-center w-full px-2 pt-5 gap-2">
-          <div>Hello</div>
-          <div>Hello</div>
-          <div>Hello</div>
-          <div>Hello</div>
-          <div>Hello</div>
-          <div>Hello</div>
-          <div>Hello</div>
-          <div>Hello</div>
-          <div>Hello</div>
-          <div>Hello</div>
-          <div>Hello</div>
-          <div>Hello</div>
-          <div>Hello</div>
-          <div>Hello</div>
-        </div>
-      </div>
+      )}
     </div>
   );
 };
