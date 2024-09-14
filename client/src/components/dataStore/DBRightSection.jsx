@@ -53,7 +53,7 @@ const DBRightSection = () => {
             {/* report headings */}
             {isSectionVisible && (
               <div className="flex items-start justify-start w-full px-4">
-                <div className="flex items-center gap-2 bg-[#FB6C55] rounded-2xl px-2 py-1">
+                <div className="flex items-center gap-2 bg-[#FEBD2E] rounded-2xl px-2 py-1">
                   <h1 className="text-[1rem] font-semi">Report Analysis</h1>
                   <BiSolidReport className="text-black text-[1rem]" />
                 </div>
@@ -63,10 +63,10 @@ const DBRightSection = () => {
         )}
 
         {/* Hide/Unhide DBRightSection icon */}
-        <div className="absolute top-7 right-2 flex items-center justify-end">
+        <div className="absolute top-11 lg:top-7 right-2 flex items-center justify-end">
           <motion.div
             {...buttonClick}
-            className="w-10 h-10 rounded-md cursor-pointer bg-[#FB6C55] backdrop-blur-md shadow-md flex items-center justify-center"
+            className="w-10 h-10 rounded-md cursor-pointer bg-[#FEBD2E] backdrop-blur-md shadow-md flex items-center justify-center"
             onClick={toggleSectionVisibility}
           >
             <TbLayoutSidebarRightCollapseFilled className="text-black text-2xl" />
@@ -146,11 +146,11 @@ const DBRightSection = () => {
                   datasets: [
                     {
                       backgroundColor: [
-                        "#51FF00",
-                        "#00B6FF",
-                        "#008BFF",
-                        "#FFD100",
-                        "#FF00FB",
+                        "#FFEFCD",
+                        "#E46651",
+                        "#00D8FF",
+                        "#FF4069",
+                        "#23CFCF",
                       ],
                       data: [40, 20, 80, 34, 54],
                     },

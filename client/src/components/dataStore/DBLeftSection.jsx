@@ -40,14 +40,17 @@ const DBLeftSection = () => {
 
       {/* <div className="overflow-y-scroll scrollbar"> */}
       <ul className="flex flex-col gap-2">
-        <div className="flex items-center justify-start px-2">
+        <div className="flex items-center justify-start gap-1 px-2">
           <motion.div
             {...buttonClick}
-            className="w-10 h-10 rounded-md cursor-pointer  bg-[#F5F3F0] backdrop-blur-md shadow-md flex items-center justify-center"
+            className="w-7 h-7 rounded-md cursor-pointer  bg-[#FEBD2E] backdrop-blur-md shadow-md flex items-center justify-center"
             onClick={toggleSectionVisibility}
           >
-            <TbLayoutSidebarLeftCollapseFilled className="text-black text-2xl" />
+            <TbLayoutSidebarLeftCollapseFilled className="text-black text-xl" />
           </motion.div>
+          <div className="flex items-center justify-end gap-2">
+            {isSectionVisible && <span>Hide me!</span>}
+          </div>
         </div>
         <NavLink
           to={"/dashboard/home"}

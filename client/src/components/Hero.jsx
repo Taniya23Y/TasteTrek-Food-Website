@@ -3,11 +3,12 @@ import HeroIMG from "../assets/HeroImg.png";
 
 const Hero = () => {
   return (
-    <section className="w-auto h-auto bg-[white] flex flex-col sm:flex-row items-center justify-between rounded-2xl px-1 py-1 select-none">
+    // <section className="w-auto h-auto bg-white flex flex-col sm:flex-row items-center justify-between rounded-2xl px-1 py-1 select-none">
+    <section className=" px-1 py-1 select-none">
       <div className="bg-[#FEBD2E] w-[100%] h-auto flex flex-col sm:flex-row items-center justify-between gap-[1vw] lg:gap-[2vw] xl:gap-[11vw] 2xl:gap-[11vw] rounded-2xl">
         {/* Text Section */}
 
-        <div className="flex pt-[5rem]">
+        <div className="flex pt-[7.5rem]">
           <div className="p-3 lg:p-9 flex flex-col items-center justify-center space-y-4 md:space-y-6 max-w-lg">
             <div className="text-4xl md:text-6xl lg:text-[5rem] flex flex-col font-bold text-black">
               <span className="font-[Aclonica]">Taste</span>
@@ -25,7 +26,7 @@ const Hero = () => {
           </div>
 
           {/* Subtitle Section */}
-          <div className="flex flex-col  justify-center items-center top-10 mt-4 mb-3 md:mt-0">
+          <div className="md:hidden lg:block flex flex-col justify-start items-center top-10 mt-4 mb-3 md:mt-0 pb-20">
             <p className="text-sm md:text-base text-black text-center">
               🤍 New strawberry season has started,
             </p>
