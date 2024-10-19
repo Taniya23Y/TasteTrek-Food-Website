@@ -6,6 +6,17 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  --yellow: linear-gradient(180deg, #f8d49a -146.42%, #fad79d -46.42%);
+  --orange: #fca61f;
+  --black: #242d49;
+  --gray: #788097;
+  --purple: linear-gradient(180deg, #bb67ff 0%, #c484f3 100%);
+  --pink: #ff919d;
+  /* --glass: rgba(255, 255, 255, 0.54); */
+  --glass: #ffefcd;
+  --boxShadow: 0px 19px 60px rgb(0 0 0 / 8%);
+  --smboxShadow: -79px 51px 60px rgba(0, 0, 0, 0.08);
+  --activeItem: #f799a354;
 }
 
 body {
@@ -17,6 +28,422 @@ body {
 .MuiPaper-root {
   width: 100%;
 }
+.dataTable {
+  width: 100%;
+  height: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .dataTable {
+    width: 32rem !important;
+    height: 30rem !important;
+    overflow-x: auto scroll !important;
+    padding-left: 12px !important;
+  }
+}
+
+@media screen and (max-width: 468px) {
+  .dataTable {
+    /* display: flex !important; */
+    align-items: center !important;
+    justify-content: center !important;
+    width: 25rem !important;
+    height: 28rem;
+    overflow-x: auto scroll !important;
+    padding-left: 12px !important;
+  }
+}
+
+.ADashboard {
+  color: var(--black);
+  background: linear-gradient(
+    106.37deg,
+    #ffe1bc 29.63%,
+    #ffcfd1 51.55%,
+    #f3f2c6 90.85%
+  );
+
+  font-family: "Inter", sans-serif;
+}
+
+.ADashboard-div {
+  display: grid;
+  height: 97%;
+  width: 98%;
+  background: var(--glass);
+  border-radius: 2rem;
+  gap: 16px;
+  grid-template-columns: 11rem auto 20rem;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 1200px) {
+  .ADashboard-div {
+    grid-template-columns: 20% 50% auto;
+    overflow-y: scroll;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .ADashboard-div {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 468px) {
+  .ADashboard-div {
+    height: 97%;
+    width: 97%;
+  }
+}
+
+.bars {
+  display: none;
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  height: 2.5rem;
+  margin-left: 2rem;
+  position: relative;
+  transition: all 300ms ease;
+  border-radius: 0.7rem;
+  font-size: 14px;
+}
+
+.menuItem:hover {
+  cursor: pointer;
+}
+
+.menu .menuItem:last-child {
+  position: absolute;
+  bottom: 2.3rem;
+}
+
+/* Tablets */
+@media screen and (max-width: 1200px) {
+  .menuItem > span {
+    display: none;
+  }
+  .Logo {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    z-index: 9;
+    background: #f5f3f0;
+    width: 55%;
+    padding-right: 1rem;
+    height: 99%;
+    border-radius: 2rem;
+  }
+  .menuItem > span {
+    display: block;
+  }
+
+  @media screen and (max-width: 525px) {
+    .sidebar {
+      position: fixed;
+      z-index: 9;
+      background: #f5f3f0;
+      width: 55%;
+      height: 97%;
+    }
+  }
+
+  .bars {
+    display: flex;
+    position: fixed;
+    top: 2rem;
+    left: 60%;
+    background: #febd2e;
+    padding: 10px;
+    border-radius: 10px;
+    z-index: 9;
+  }
+}
+
+/************************************************/
+.MainDash {
+  /* padding-top: 1rem; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 1200px) {
+  .MainDash {
+    justify-content: flex-start;
+    margin-top: 2rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .MainDash {
+    align-items: center;
+  }
+}
+
+/**************************************/
+.Cards {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+}
+.parentContainer {
+  width: 95vw;
+  height: 29vh;
+  padding: 10px;
+}
+
+@media screen and (max-width: 1200px) {
+  .Cards {
+    flex-direction: column;
+  }
+  .parentContainer {
+    height: 9rem;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .Cards {
+    flex-direction: column;
+    overflow-x: auto scroll;
+  }
+  .parentContainer {
+    height: 9rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .Cards {
+    width: 100%;
+  }
+  .parentContainer {
+    height: 10rem;
+    display: flex;
+    flex-direction: column !important;
+  }
+}
+
+@media screen and (max-width: 468px) {
+  .Cards {
+    width: 100%;
+  }
+  .parentContainer {
+    height: 9rem;
+  }
+}
+
+/*********************************/
+.CompactCard {
+  display: flex;
+  flex: 1;
+  width: 13rem !important;
+  height: 9rem !important;
+  border-radius: 0.7rem;
+  color: white;
+  padding: 1rem;
+  position: relative;
+  cursor: pointer;
+}
+.CompactCard:hover {
+  box-shadow: none !important;
+}
+
+/* radial bar */
+.radialBar {
+  padding-top: 2px;
+  flex: 1 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+.CircularProgressbar {
+  width: 4rem !important;
+  overflow: visible;
+}
+.CircularProgressbar-path {
+  stroke: white !important;
+  stroke-width: 12px !important;
+  filter: drop-shadow(2px 4px 6px white);
+}
+.CircularProgressbar-trail {
+  display: none;
+}
+.CircularProgressbar-text {
+  fill: white !important;
+}
+
+.radialBar > span {
+  font-size: 17px;
+  font-weight: bold;
+}
+
+/* sideDetail*/
+.detail {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.detail > span:nth-child(2) {
+  font-size: 22px;
+  font-weight: bold;
+}
+.detail > span:nth-child(3) {
+  font-size: 12px;
+}
+
+/* ExpandedCard */
+.ExpandedCard {
+  position: absolute;
+  width: 60%;
+  height: 70vh;
+  z-index: 9;
+  left: 13rem;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 1rem;
+}
+.ExpandedCard > span:nth-of-type(1) {
+  color: white;
+  font-size: 26px;
+  font-weight: bold;
+  text-shadow: 0px 0px 15px white;
+}
+.ExpandedCard > span:nth-of-type(2) {
+  color: rgb(236, 236, 236);
+  font-size: 15px;
+}
+
+.chartContainer {
+  width: 70%;
+}
+
+@media screen and (max-width: 1200px) {
+  .ExpandedCard {
+    top: 2rem;
+    height: 45vh;
+    left: 6rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .ExpandedCard {
+    top: 8rem;
+    height: 50%;
+    left: 25px;
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .CompactCard {
+    height: 50%;
+    width: 100% !important;
+  }
+}
+
+/**********************************/
+.MuiTableRow-root > * {
+  padding: 10px;
+}
+
+.MuiTableRow-root.MuiTableRow-head > * {
+  font-weight: bold !important;
+}
+
+.Table td,
+th {
+  border: none !important;
+}
+
+.Table:first-child {
+  border-radius: 0.7rem !important;
+}
+.status {
+  padding: 8px;
+  border-radius: 9px;
+}
+
+.Details {
+  color: #00b5ff !important;
+}
+
+@media screen and (max-width: 1200px) {
+  .Table {
+    width: 170%;
+    margin-top: 2rem;
+    overflow-x: auto scroll;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .Table {
+    position: relative;
+    top: 320px;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 36rem !important;
+    padding-left: 10rem !important;
+    overflow-x: auto scroll;
+  }
+}
+
+@media screen and (max-width: 468px) {
+  .Table {
+    padding-left: 2px !important;
+    padding-right: 2px !important;
+    position: relative;
+    display: flex;
+    flex-direction: column !important;
+    align-items: center;
+    width: 100vw !important;
+    top: 0px;
+  }
+}
+
+/*************************************************/
+
+/* Custom CSS for SweetAlert2 */
+.my-custom-popup {
+  background-color: #f5f3f0;
+  border-radius: 10px;
+  font-family: "Arial", sans-serif;
+}
+
+.swal2-title {
+  color: #2d3748;
+  font-size: 24px;
+}
+
+.swal2-confirm {
+  background-color: #48bb78 !important;
+  color: white !important;
+}
+
+.swal2-cancel {
+  background-color: #f56565 !important;
+  color: white !important;
+}
+/***************************************/
 
 @tailwind base;
 @tailwind components;

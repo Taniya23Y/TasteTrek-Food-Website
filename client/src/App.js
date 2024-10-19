@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
-import { Main, Login, Dashboard } from "./containers";
+import { Main, Login, Dashboard, ADashboard } from "./containers";
 import { app } from "./config/firebase.config";
 import { getAuth } from "firebase/auth";
 import { validateUserJWTToken } from "./api";
@@ -9,6 +9,7 @@ import { setUserDetails } from "./context/actions/userActions";
 import { motion } from "framer-motion";
 import { fadeInOut } from "./animations";
 import { Alert, MainLoader } from "./components";
+import PrivateRoute from "./components/PrivateRoute";
 
 const App = () => {
   const firebaseAuth = getAuth(app);
@@ -36,7 +37,7 @@ const App = () => {
   }, []); /* eslint-disable-line react-hooks/exhaustive-deps */
 
   return (
-    <div className="App w-full h-full flex flex-col items-center justify-center">
+    <div className="App w-full h-full flex flex-col items-center justify-center overflow-hidden">
       {isLoading && (
         <motion.div
           {...fadeInOut}
@@ -49,7 +50,23 @@ const App = () => {
       <Routes>
         <Route path="/*" element={<Main />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/dashboard/*" element={<Dashboard />} />
+        {/* Protect the dashboard and adashboard routes */}
+        <Route
+          path="/dashboard/*"
+          element={
+            // <PrivateRoute>
+            <Dashboard />
+            // </PrivateRoute>
+          }
+        />
+        <Route
+          path="/adashboard/*"
+          element={
+            <PrivateRoute>
+              <ADashboard />
+            </PrivateRoute>
+          }
+        />
       </Routes>
 
       {alert?.type && <Alert type={alert?.type} message={alert?.message} />}

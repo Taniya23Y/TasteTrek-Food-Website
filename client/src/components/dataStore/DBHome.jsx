@@ -1,21 +1,14 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllProducts } from "../../api";
-import { setAllProducts } from "../../context/actions/productActions";
+import React from "react";
+import Cards from "../dataStore/Cards";
+import Table from "../dataStore/Table";
 
 const DBHome = () => {
-  const products = useSelector((state) => state.products);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (!products) {
-      getAllProducts().then((data) => {
-        dispatch(setAllProducts(data));
-      });
-    }
-  }, []); /* eslint-disable-line react-hooks/exhaustive-deps */
-
-  return <div className="text-black">DBHome</div>;
+  return (
+    <div className="text-black ">
+      <Cards />
+      <Table />
+    </div>
+  );
 };
 
 export default DBHome;

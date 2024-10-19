@@ -81,21 +81,36 @@ function Login() {
   }, [user]); /* eslint-disable-line react-hooks/exhaustive-deps */
 
   const loginWithGoogle = async () => {
-    await signInWithPopup(firebaseAuth, provider).then((userCred) => {
-      firebaseAuth.onAuthStateChanged((cred) => {
-        if (userCred) {
-          // console.log(cred);
-          cred.getIdToken().then((token) => {
-            // console.log(token);
-            validateUserJWTToken(token).then((data) => {
-              // console.log(data);
-              dispatch(setUserDetails(data));
+    try {
+      const userCred = await signInWithPopup(firebaseAuth, provider);
+
+      if (userCred) {
+        firebaseAuth.onAuthStateChanged((cred) => {
+          if (cred) {
+            cred.getIdToken().then((token) => {
+              validateUserJWTToken(token).then((data) => {
+                dispatch(setUserDetails(data));
+              });
+              navigate("/", { replace: true });
             });
-            navigate("/", { replace: true });
-          });
-        }
-      });
-    });
+          }
+        });
+      }
+    } catch (error) {
+      // Handle specific Firebase Auth errors, e.g., popup closed by user
+      if (error.code === "auth/popup-closed-by-user") {
+        dispatch(
+          alertWarning(
+            "Popup was closed before sign-in could complete. Please try again."
+          )
+        );
+      } else {
+        console.error("Google Sign-In Error: ", error);
+        dispatch(
+          alertWarning("An error occurred during sign-in. Please try again.")
+        );
+      }
+    }
   };
 
   const signUpWithEmailPass = async () => {
@@ -131,9 +146,13 @@ function Login() {
   };
 
   const signInWithEmailPass = async () => {
-    if (!userEmail !== "" && password !== "") {
-      await signInWithEmailAndPassword(firebaseAuth, userEmail, password).then(
-        (userCred) => {
+    if (userEmail !== "" && password !== "") {
+      try {
+        await signInWithEmailAndPassword(
+          firebaseAuth,
+          userEmail,
+          password
+        ).then((userCred) => {
           firebaseAuth.onAuthStateChanged((cred) => {
             if (cred) {
               cred.getIdToken().then((token) => {
@@ -144,10 +163,21 @@ function Login() {
               });
             }
           });
+        });
+      } catch (error) {
+        // Handle the error based on error code
+        if (error.code === "auth/invalid-login-credentials") {
+          dispatch(
+            alertWarning("Invalid email or password. Please try again.")
+          );
+        } else {
+          dispatch(
+            alertWarning("An unexpected error occurred. Please try again.")
+          );
         }
-      );
+      }
     } else {
-      dispatch(alertWarning("Password doesn't match."));
+      dispatch(alertWarning("Please fill in all required fields."));
     }
   };
 
@@ -184,7 +214,7 @@ function Login() {
       </div>
 
       {/* Hero Section */}
-      <div className="pt-8 flex flex-col md:flex-row justify-center items-center gap-6 md:gap-10 p-4 overflow-hidden">
+      <div className="pt-16 flex flex-col md:flex-row justify-center items-center gap-6 md:gap-10 p-4 overflow-hidden">
         <div>
           <h1 className="font-[Aclonica] text-[2rem] md:text-5xl text-black font-bold">
             Craving Something?
@@ -192,14 +222,14 @@ function Login() {
 
           <div className="flex-col pt-4">
             <motion.h2
-              className="font-[Aclonica] text-[1.5rem] text-white"
+              className="hidden md:font-[Aclonica] text-[1.5rem] text-white"
               variants={textAnimation}
               animate="bounce"
             >
               good food
             </motion.h2>
             <motion.h2
-              className="font-[Aclonica] text-[1.5rem] text-white"
+              className="hidden md:font-[Aclonica] text-[1.5rem] text-white"
               variants={textAnimation}
               animate="bounce"
             >
@@ -224,7 +254,7 @@ function Login() {
             </div>
 
             {/* Animated Arrow */}
-            <div className="flex items-center justify-start mt-4 text-[2rem]">
+            <div className="hidden md:flex items-center justify-start mt-4 text-[2rem]">
               <motion.span
                 className="flex items-center gap-4 p-5 rounded-lg hover:shadow-lg transition-all"
                 style={{ border: "1px solid gray" }}

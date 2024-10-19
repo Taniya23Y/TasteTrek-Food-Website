@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
+import { PieChart } from "@mui/x-charts/PieChart";
+
 import {
   BiSolidReport,
   IoBarChartSharp,
@@ -19,6 +22,7 @@ const DBRightSection = () => {
   const dispatch = useDispatch();
 
   const products = useSelector((state) => state.products);
+
   const drinks = products?.filter((item) => item.product_category === "drinks");
   const deserts = products?.filter(
     (item) => item.product_category === "deserts"
@@ -30,6 +34,29 @@ const DBRightSection = () => {
   const chinese = products?.filter(
     (item) => item.product_category === "chinese"
   );
+
+  // Prepare category counts
+  const categoryCounts = {
+    drinks: drinks?.length,
+    deserts: deserts?.length,
+    fruits: fruits?.length,
+    rice: rice?.length,
+    curry: curry?.length,
+    bread: bread?.length,
+    chinese: chinese?.length,
+  };
+
+  // Prepare data for PieChart
+
+  const pieData = [
+    { id: "Drinks", value: categoryCounts.drinks, label: "drinks" },
+    { id: "Deserts", value: categoryCounts.deserts, label: "deserts" },
+    { id: "Fruits", value: categoryCounts.fruits, label: "fruits" },
+    { id: "Rice", value: categoryCounts.rice, label: "rice" },
+    { id: "Curry", value: categoryCounts.curry, label: "curry" },
+    { id: "Bread", value: categoryCounts.bread, label: "bread" },
+    { id: "Chinese", value: categoryCounts.chinese, label: "chinese" },
+  ];
 
   useEffect(() => {
     if (!products) {
@@ -128,12 +155,12 @@ const DBRightSection = () => {
           <hr />
 
           <div className="flex items-center justify-center px-2 w-full pt-2 pb-3">
-            <div className="bg-[#e2e0e0] rounded-md py-8 px-2 h-full">
+            <div className="bg-[#e2e0e0] rounded-md py-5 px-2 h-full">
               <div className="flex items-center justify-center gap-2 pb-4 underline">
                 <h1 className="text-[2rem] font-medium">Doughnut Report</h1>
                 <IoPieChartSharp className="text-black text-[2rem]" />
               </div>
-              <CChart
+              {/* <CChart
                 type="doughnut"
                 data={{
                   labels: [
@@ -165,7 +192,39 @@ const DBRightSection = () => {
                     },
                   },
                 }}
-              />
+              /> */}
+              <div className="w-[300px] h-[300px] flex items-start justify-start p-0">
+                <PieChart
+                  series={[
+                    {
+                      data: pieData.map((item, index) => ({
+                        id: item.id,
+                        value: item.value,
+                        label: item.label,
+                        color: [
+                          "#22378C", // Color for Drinks
+                          "#FFBD33", // Color for Deserts
+                          "#33FF57", // Color for Fruits
+                          "#33C1FF", // Color for Rice
+                          "#3357FF", // Color for Curry
+                          "#A233FF", // Color for Bread
+                          "#F5F3F0", // Color for Chinese
+                        ][index],
+                      })),
+                      innerRadius: 30,
+                      outerRadius: 100,
+                      paddingAngle: 5,
+                      cornerRadius: 5,
+                      startAngle: -45,
+                      endAngle: 225,
+                      cx: 150,
+                      cy: 150,
+                    },
+                  ]}
+                  width={390}
+                  height={300}
+                />
+              </div>
             </div>
           </div>
         </div>

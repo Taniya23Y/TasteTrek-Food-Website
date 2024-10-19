@@ -15,4 +15,11 @@ export { default as DBUsers } from "./dataStore/DBUsers";
 export { default as DataTable } from "./dataStore/DataTable";
 export { default as DBMidSection } from "./dataStore/DBMidSection";
 
+export { default as Sidebar } from "./dataStore/Sidebar.jsx";
+export { default as MainDash } from "./dataStore/MainDash.jsx";
+export { default as RightSide } from "./dataStore/RightSide.jsx";
+export { default as Cards } from "./dataStore/Cards.jsx";
+export { default as Card } from "./dataStore/Card.jsx";
+export { default as Table } from "./dataStore/Table.jsx";
+
 export { default as Spinner } from "./Spinner";

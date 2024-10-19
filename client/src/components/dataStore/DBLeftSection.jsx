@@ -24,6 +24,7 @@ const DBLeftSection = () => {
 
   return (
     <div className="h-full  sticky py-6 flex flex-col bg-[#F5F3F0] backdrop-blur-md shadow-md gap-2">
+      {/* logo and heading  */}
       <div className="flex gap-1">
         <NavLink to={"/"} className="flex items-center justify-start">
           <img src={logo} alt="logo" className="w-12" />

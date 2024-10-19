@@ -17,29 +17,8 @@ const DBUsers = () => {
     }
   }, []); /* eslint-disable-line react-hooks/exhaustive-deps */
 
-  // useEffect(() => {
-  //   // Check if allUsers is already loaded
-  //   if (!allUsers) {
-  //     getAllUsers()
-  //       .then((data) => {
-  //         if (data && data.length > 0) {
-  //           // Dispatch action only if data is valid and not empty
-  //           dispatch(setAllUserDetails(data));
-  //         } else {
-  //           console.warn("No users found or data is empty.");
-  //         }
-  //       })
-  //       .catch((error) => {
-  //         console.error("Error while fetching users:", error);
-  //       });
-  //   }
-  // }, [
-  //   allUsers,
-  //   dispatch,
-  // ]); /* eslint-disable-line react-hooks/exhaustive-deps */
-
   return (
-    <div className="flex items-center justify-center gap-4 pt-6 w-full">
+    <div className="flex items-center justify-center gap-4 pt-6 w-full overflow-x-auto scrollbar">
       <DataTable
         columns={[
           {
@@ -49,11 +28,11 @@ const DBUsers = () => {
               rowData.photoURL ? (
                 <img
                   src={rowData.photoURL}
-                  className="w-16 h-16 object-contain rounded-md"
+                  className="w-16 h-16 object-contain rounded-full"
                   alt="profileImg"
                 />
               ) : (
-                <Avatar className="w-16 h-16 object-contain rounded-md text-3xl" />
+                <Avatar className="w-16 h-16 object-contain rounded-full text-3xl" />
               ),
           },
           {
