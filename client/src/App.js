@@ -51,14 +51,7 @@ const App = () => {
         <Route path="/*" element={<Main />} />
         <Route path="/login" element={<Login />} />
         {/* Protect the dashboard and adashboard routes */}
-        <Route
-          path="/dashboard/*"
-          element={
-            // <PrivateRoute>
-            <Dashboard />
-            // </PrivateRoute>
-          }
-        />
+        <Route path="/dashboard/*" element={<Dashboard />} />
         <Route
           path="/adashboard/*"
           element={

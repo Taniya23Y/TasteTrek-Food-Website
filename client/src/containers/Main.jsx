@@ -13,9 +13,6 @@ function Main() {
 
         <Hero />
 
-        {/* <HeroDivider /> */}
-        {/* <HeroOne /> */}
-
         <h1>Heelo jii</h1>
         <h1>Heelo jii</h1>
         <h1>Heelo jii</h1>

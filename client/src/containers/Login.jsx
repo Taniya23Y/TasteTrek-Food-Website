@@ -222,14 +222,14 @@ function Login() {
 
           <div className="flex-col pt-4">
             <motion.h2
-              className="hidden md:font-[Aclonica] text-[1.5rem] text-white"
+              className="font-[Aclonica] text-[1.5rem] text-white "
               variants={textAnimation}
               animate="bounce"
             >
               good food
             </motion.h2>
             <motion.h2
-              className="hidden md:font-[Aclonica] text-[1.5rem] text-white"
+              className="font-[Aclonica] text-[1.5rem] text-white"
               variants={textAnimation}
               animate="bounce"
             >
