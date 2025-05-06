@@ -28,6 +28,7 @@ const DBNewItems = () => {
   const [progress, setProgress] = useState(null);
   const [imageDownloadURL, setImageDownloadURL] = useState(null);
 
+  // eslint-disable-next-line no-unused-vars
   const alert = useSelector((state) => state.alert);
   const dispatch = useDispatch();
 

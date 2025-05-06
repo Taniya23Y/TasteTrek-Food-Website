@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // Sidebar imports
 import {
   UilBars,
